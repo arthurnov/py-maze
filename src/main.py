@@ -6,8 +6,11 @@ def main():
     win = Window(800, 600)
 
     c = Cell(win)
-    c.has_left_wall = False
     c.draw(50, 50, 100, 100)
+
+    d = Cell(win)
+    d.draw(100, 50, 150, 100)
+    d.draw_move(c)
 
     c = Cell(win)
     c.has_right_wall = False
@@ -20,6 +23,8 @@ def main():
     c = Cell(win)
     c.has_top_wall = False
     c.draw(300, 300, 500, 500)
+
+
 
     win.wait_for_close()
     print("end")
