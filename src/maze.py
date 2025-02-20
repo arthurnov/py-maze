@@ -1,3 +1,6 @@
+from cell import Cell
+import time
+
 class Maze:
     def __init__(
         self,
@@ -14,16 +17,24 @@ class Maze:
         self.num_rows = num_rows
         self.num_cols = num_cols
         self.cell_size_x = cell_size_x
-        self.self_size_y = cell_size_y
+        self.cell_size_y = cell_size_y
         self.win = win
 
         self._create_cells()
 
     def _create_cells(self):
-        pass
+        self._cells = [[Cell(self.win)] * self.num_rows] * self.num_cols
+        for i in range(len(self._cells)):
+            for j in range(len(self._cells[i])):
+                self._draw_cell(i, j)
+        
 
     def _draw_cell(self, i, j):
-        pass
+        cell_x = i * self.cell_size_x + self.x1
+        cell_y = j * self.cell_size_y + self.y1
+        self._cells[i][j].draw(cell_x, cell_y, cell_x + self.cell_size_x, cell_y + self.cell_size_y)
+        self._animate()
 
     def _animate(self):
-        pass
+        self.win.redraw()
+        time.sleep(0.05)
