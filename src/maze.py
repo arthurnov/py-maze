@@ -63,4 +63,7 @@ class Maze:
         self._draw_cell(self._num_cols - 1, self._num_rows - 1)
 
     def _break_walls_r(self, i, j):
-        pass
+        visited = []
+        visited.append(self._cells[i][j])
+        while True:
+            return
