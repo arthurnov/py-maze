@@ -1,10 +1,8 @@
 from graphics import Window
-from cell import Cell
 from maze import Maze
 
-def main():
-    print("start")
 
+def main():
     num_rows = 12
     num_cols = 16
     margin = 50
@@ -17,7 +15,6 @@ def main():
     maze = Maze(margin, margin, num_rows, num_cols, cell_size_x, cell_size_y, win, 10)
 
     win.wait_for_close()
-    print("end")
 
-if __name__ == "__main__":
-    main()
+
+main()
