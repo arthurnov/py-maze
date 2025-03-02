@@ -117,3 +117,55 @@ class Maze:
         for col in self._cells:
             for cell in col:
                 cell.visited = False
+
+    def solve(self):
+        print("DEBUG: SOLVIG")
+        if self._solve_r(0, 0):
+            print(f"DEBUG: Returned TRUE")
+        else:
+            print(f"DEBUG: Returned FALSE")
+    
+    def _solve_r(self, i, j):
+        print(f"DEBUG: SOLVING _R i: {i} j: {j}")
+        self._animate()
+        print(f"DEBUG: CELL({i}, {j}) Animated")
+        self._cells[i][j].visited = True
+        print(f"DEBUG: CELL({i}, {j}) Set 'visited'")
+        if i == self._num_cols - 1 and j == self._num_rows - 1:
+            print("DEBUG: Found END")
+            return True
+        # print(f"DEBUG: CELL({i}, {j}) Looking at walls")
+        # print(f"DEBUG: CELL({i}, {j})'s walls:\nT: {self._cells[i][j].has_top_wall} | L: {self._cells[i][j].has_left_wall} | B: {self._cells[i][j].has_bottom_wall} | R: {self._cells[i][j].has_right_wall}")
+        #right
+        if self._cells[i][j].has_right_wall == False and i+1 < self._num_cols and self._cells[i+1][j].visited == False:
+            print("DEBUG: Moving LEFT")
+            self._cells[i][j].draw_move(self._cells[i+1][j])
+            if self._solve_r(i+1, j) == True:
+                return True
+            else:
+                self._cells[i][j].draw_move(self._cells[i+1][j], True)
+        #left
+        if self._cells[i][j].has_left_wall == False and i-1 >= 0 and self._cells[i-1][j].visited == False:
+            print("DEBUG: Moving RIGHT")
+            self._cells[i][j].draw_move(self._cells[i-1][j])
+            if self._solve_r(i-1, j) == True:
+                return True
+            else:
+                self._cells[i][j].draw_move(self._cells[i-1][j], True)
+        #up
+        if self._cells[i][j].has_top_wall == False and j-1 >= 0 and self._cells[i][j-1].visited == False:
+            print("DEBUG: Moving UP")
+            self._cells[i][j].draw_move(self._cells[i][j-1])
+            if self._solve_r(i, j-1) == True:
+                return True
+            else:
+                self._cells[i][j].draw_move(self._cells[i][j-1], True)
+        #down
+        if self._cells[i][j].has_bottom_wall == False and j+1 < self._num_rows and self._cells[i][j+1].visited == False:
+            print("DEBUG: Moving DOWN")
+            self._cells[i][j].draw_move(self._cells[i][j+1])
+            if self._solve_r(i, j+1) == True:
+                return True
+            else:
+                self._cells[i][j].draw_move(self._cells[i][j+1], True)
+        return False
